@@ -1,7 +1,5 @@
 # Twitter Sentimental Analysis
-Sentiment analysis of particular hash tags in twitter data in real-time
-
-We want to do the sentiment analysis for all the tweets for #trump, #coronavirus
+Sentiment analysis of particular hash tags in twitter data in real-time. We want to do the sentiment analysis for all the tweets for #trump, #coronavirus.
 
 Framework has the following components
 
