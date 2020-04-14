@@ -5,7 +5,7 @@ We want to do the sentiment analysis for all the tweets for #trump, #coronavirus
 
 Framework has the following components
 
-[SCRAPPER] --> [KAFKA] --> [SENTIMENT ANALYZER + SPARK STREAMING] --> [ELASTICSEARCH] --> [KIBANA]
+#### [SCRAPPER] --> [KAFKA] --> [SENTIMENT ANALYZER + SPARK STREAMING] --> [ELASTICSEARCH] --> [KIBANA]
 
 
 ## Python Scrapper and Kafka
