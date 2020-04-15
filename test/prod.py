@@ -46,7 +46,7 @@ if len(sys.argv) <2:
     print('Correct Usage: python <filename> <hashtag-without-#>')
     sys.exit()
 else:
-    topicName=sys.argv[1]+'-topic'
+    topicName=sys.argv[1]+'-topictest'
     hashtag='#'+(sys.argv[1])
     print('Hashtag to analyze: ',hashtag)
     twitter_stream.filter(track=[hashtag])
