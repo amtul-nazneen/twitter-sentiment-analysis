@@ -30,7 +30,7 @@ Sentiment analysis of particular hash tags in twitter data in real-time. Here, w
      * Example: `python StreamConsumer.py trump`
 3. Login to Kibana: http://localhost:5601/ and build visualizations for the below indices
      * coronavirus-index, trump-index
-     
+
 ## Visualizations
  * Kibana Visualizations are present in the `kibanaVisuals` folder
- * The visualizations are also reported in the `Homework3_axn180041.pdf`document in the `kibanaVisuals` folder
+ * All visualizations are reported in the `KibanaVisuals.pdf`document in the `kibanaVisuals` folder
