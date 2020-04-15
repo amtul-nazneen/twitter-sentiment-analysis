@@ -33,4 +33,4 @@ Sentiment analysis of particular hash tags in twitter data in real-time. Here, w
      
 ## Visualizations
  * Kibana Visualizations are present in the `kibanaVisuals` folder
- * The visualizations are also reported in the `Assignment3_axn180041.pdf`document
+ * The visualizations are also reported in the `Homework3_axn180041.pdf`document
