@@ -25,8 +25,8 @@ Sentiment analysis of particular hash tags in twitter data in real-time. We want
 
 ## Steps to run
 1. Run the `StreamProducer.py` by providing the hashtag to analyze
- * Example: `python StreamProducer.py trump`
+  * Example: `python StreamProducer.py trump`
 2. Run the `StreamConsumer.py` by providing the hashtag (this is just to open the stream to kafka topic)
- * Example: python StreamConsumer.py trump 
+  * Example: `python StreamConsumer.py trump` 
 3. Login to Kibana: http://localhost:5601/ and build visualizations for the below indices
- * coronavirus-index, trump-index
+  * coronavirus-index, trump-index
