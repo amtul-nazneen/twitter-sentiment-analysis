@@ -22,9 +22,10 @@ Sentiment analysis of particular hash tags in twitter data in real-time. Here, w
 2. Elasticsearch
 3. Kibana
 4. Python 3 and above
+5. Twitter API Keys
 
 ## Steps to run
-1. Run the `StreamProducer.py` by providing the hashtag to analyze
+1. Add your Twitter API Keys in the `StreamProducer.py` file and run it by providing the hashtag to analyze
      * Example: `python StreamProducer.py trump`
 2. Run the `StreamConsumer.py` by providing the hashtag (this is just to open the stream to kafka topic)
      * Example: `python StreamConsumer.py trump`
