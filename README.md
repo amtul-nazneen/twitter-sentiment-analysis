@@ -3,14 +3,14 @@ Sentiment analysis of particular hash tags in twitter data in real-time. Here, w
 
 ## Framework
 
-#### [SCRAPPER] --> [KAFKA] --> [SENTIMENT ANALYZER + SPARK STREAMING] --> [ELASTICSEARCH] --> [KIBANA]
+#### [SCRAPPER] --> [KAFKA] --> [SPARK STREAMING + SENTIMENT ANALYZER] --> [ELASTICSEARCH] --> [KIBANA]
 
 ### Python Scrapper and Kafka
   * The scrapper runs infinitely, collecting all tweets with hashtags with #trump, #coronavirus
   * Sends the collected tweets to Kafka for analytics
 
 ### Spark Streaming and Sentimental Analyzer
-  * A Kafka consumer which periodically collect filtered tweets from the scrapper
+  * Spark Streaming with a Kafka consumer which periodically collect filtered tweets from the scrapper
   * For each hash tag, perform sentiment analysis using Python Sentiment Analyzing tool - nltk
 
 ### Elasticsearch and Kibana
@@ -24,12 +24,25 @@ Sentiment analysis of particular hash tags in twitter data in real-time. Here, w
 4. Python 3 and above
 5. Twitter API Keys [https://developer.twitter.com/en]
 
+## Server Startup Commands
+1. Kafka ZooKeeper: Run the below command from kafka-home
+     * `bin/zookeeper-server-start.sh config/zookeeper.properties`
+2. Kafka Server: Run the below command from kafka-home
+     * `bin/kafka-server-start.sh config/server.properties `
+3. List or Delete Kafka topics
+     * `bin/kafka-topics.sh --list --zookeeper localhost:2181`
+     * `bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic coronavirus-topic`
+4. Elasticsearch Server: Run the below command from elasticsearch-home/bin
+    * `./elasticsearch`
+5. Kibana Server: Run the below command from kibana-home/bin
+    * `./kibana`
+
 ## Steps to run
-1. Add your Twitter API Keys in the `StreamProducer.py` file and run it by providing the hashtag to analyze
+1. Run the `StreamProducer.py` by providing the hashtag to analyze
      * Example: `python StreamProducer.py trump`
-2. Run the `StreamConsumer.py` by providing the hashtag (this is just to open the stream to kafka topic)
-     * Example: `python StreamConsumer.py trump`
-3. Login to Kibana: http://localhost:5601/ and build visualizations for the below indices
+2. From the spark-home folder, run the `StreamConsumer.py` by providing the hashtag (this is just to open the stream to kafka topic)
+     * Example: `bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.1 /path-to-StreamConsumer.py trump`
+3. Login to Kibana: http://localhost:5601/ and build visualizations for the below indices that were created
      * coronavirus-index, trump-index
 
 ## Visualizations

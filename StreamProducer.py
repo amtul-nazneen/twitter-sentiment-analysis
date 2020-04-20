@@ -7,7 +7,7 @@ from tweepy import Stream
 from tweepy.streaming import StreamListener
 import sys
 
-# amtul - Twitter API Configurations
+# amtulNazneen - Twitter API Configurations
 consumer_key = "HKZJ3eoU0s60EkMhSWU7fDQ0C"
 consumer_secret = "a1YpTw4ntvi2LM7yhWDReIXeCCNVNtCOkLwdeLHWs8Fa3IacTX"
 access_token = "979383744627859457-RKRvngKlAGL3SrwKqj64MpOOXcnTF7S"

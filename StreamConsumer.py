@@ -4,10 +4,14 @@ import json
 from textblob import TextBlob
 from elasticsearch import Elasticsearch
 import sys
+from pyspark import SparkContext
+from pyspark import SparkConf
+from pyspark.streaming import StreamingContext
+from pyspark.streaming.kafka import KafkaUtils
 
 topicName="init-topic"
 indexName="init-index"
-
+kafkaBroker="localhost:9092"
 es = Elasticsearch()
 sid = SentimentIntensityAnalyzer()
 
@@ -23,23 +27,29 @@ def detectSentiment(sentence):
         sentiment = "Positive"
     return sentiment
 
-# Store tweet and Sentiment in Elasticsearch
+# Spark Streaming from Kafka Broker
 def main():
-    consumer = KafkaConsumer(topicName)
-    for msg in consumer:
-        jsonMsg = json.loads(msg.value)
-        if 'extended_tweet' in jsonMsg:
-            fullText = jsonMsg['extended_tweet']['full_text']
-        else:
-            fullText = ""
-        if fullText != "":
-            sentiment = detectSentiment(fullText)
-            output = "\nTweet Content: " + fullText + " \nSentiment: " + sentiment + " \n\n"
-            print(output)
-            es.index(index=indexName,doc_type="test-type",body={"author":jsonMsg['user']['screen_name'],"sentiment":sentiment,"message":fullText})
+    sc = SparkContext("local[2]",topicName)
+    ssc = StreamingContext(sc, 2)
+    kus = KafkaUtils.createDirectStream(ssc,[topicName],{"metadata.broker.list":kafkaBroker})
+    output = kus.foreachRDD(connector)
+    ssc.start()
+    ssc.awaitTermination()
 
+# Store tweet and Sentiment in Elasticsearch
+def connector(element):
+    alltweets = element.collect()
+    for eachtweet in alltweets:
+        tweet=eachtweet[1]
+        tweet=json.loads(tweet)
+        tweet=TextBlob(tweet["text"])
+        print("-----------------------------------> Tweet: ",tweet)
+        tweet = str(tweet)
+        sentiment=detectSentiment(tweet)
+        print("-----------------------------------> Sentiment: ",sentiment)
+        es.index(index=indexName,doc_type="test-type",body={"sentiment":sentiment,"message":tweet})
 
-# Consume Data as per the input HashTag
+#Consume Data as per the input topic
 if __name__ == '__main__':
     if len(sys.argv) <2:
         print('Correct Usage: python <filename> <hashtag-without-#>')
